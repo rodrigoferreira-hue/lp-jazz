@@ -272,7 +272,7 @@
     box-shadow: 0 12px 26px -10px rgba(0, 0, 0, .7);
   }
   .credi { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 12px; margin-top: 24px; font-weight: 600; font-size: .95rem; color: #E7E7EC; }
-  .credi__logo { height: 64px; width: auto; }
+  .credi__logo { height: clamp(96px, 26vw, 140px); width: auto; max-width: 100%; }
   .sticker--ipva { right: -6px; top: -18px; width: 118px; height: 118px; border-radius: 50%; background: var(--yellow); color: var(--ink); transform: rotate(9deg); font-size: 1.25rem; }
   .sticker--ipva b { display: block; font-size: 2rem; }
   .sticker--fipe { left: -6px; bottom: 18px; padding: 10px 16px; background: var(--red); color: var(--white); transform: rotate(-4deg) skewX(-6deg); font-size: 1.45rem; }

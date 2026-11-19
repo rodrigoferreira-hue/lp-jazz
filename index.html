@@ -320,6 +320,15 @@
   }
   .car__body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
   .car h3 { font-family: var(--display); font-weight: 800; font-style: italic; text-transform: uppercase; font-size: 1.6rem; line-height: 1; }
+  .car__cat-line {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px 5px; border-radius: 6px;
+    font-family: var(--display); font-style: italic; font-weight: 800; text-transform: uppercase;
+    font-size: 1.05rem; line-height: 1; letter-spacing: .04em;
+    background: var(--red); color: var(--white);
+  }
+  .car__cat-line--comfort { background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+  .car__cat-line--black { background: #000; color: var(--white); }
   .car__specs { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
   .car__specs li { position: relative; padding-left: 18px; font-size: .95rem; line-height: 1.35; color: #45464D; }
   .car__specs li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
@@ -985,6 +994,7 @@
           (c.gnv ? '<span class="car__badge">Flex + GNV</span>' : '') +
         '</div>' +
         '<div class="car__body">' +
+          '<p class="car__cat-line car__cat-line--' + cat.id + '">Categoria ' + cat.nome + '</p>' +
           '<h3>' + c.nome + '</h3>' +
           '<ul class="car__specs">' +
             '<li>Motor <b>' + c.motor + '</b></li>' +

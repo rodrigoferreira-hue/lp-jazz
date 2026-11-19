@@ -320,8 +320,10 @@
   }
   .car__body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
   .car h3 { font-family: var(--display); font-weight: 800; font-style: italic; text-transform: uppercase; font-size: 1.6rem; line-height: 1; }
-  .car__specs { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .car__specs li { font-size: .86rem; font-weight: 600; color: #45464D; background: var(--paper); padding: 4px 10px; border-radius: 999px; }
+  .car__specs { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .car__specs li { position: relative; padding-left: 18px; font-size: .95rem; line-height: 1.35; color: #45464D; }
+  .car__specs li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  .car__specs b { color: var(--ink); font-weight: 700; }
   .car__cta {
     margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     min-height: 48px; border-radius: 999px; text-decoration: none;
@@ -330,8 +332,8 @@
   }
   .car__cta svg { width: 20px; height: 20px; color: var(--wa); }
   .car__cta:hover { background: var(--steel); }
-  .cars__more { margin-top: 26px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .cars__disclaimer { font-size: .84rem; color: var(--muted); }
+  .cars__more { margin-top: 26px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  .cars__disclaimer { font-size: .84rem; color: var(--muted); max-width: 640px; }
 
   /* ---------- Passos ---------- */
   .steps { background: var(--white); border-block: 1px solid var(--line); }
@@ -490,10 +492,10 @@
     .hero__actions { display: none; } /* no desktop o formulário já está visível ao lado */
     .offer__grid { grid-template-columns: repeat(4, 1fr); }
     .entry .wrap { grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
-    .cars__cats { gap: 52px 20px; }
+    .cars__cats { grid-template-columns: repeat(3, 1fr); gap: 52px 20px; }
+    .cat__head { flex-direction: column; align-items: flex-start; }
+    .cat__head p { min-height: 2.8em; }
     .cat__grid { gap: 20px; }
-    .cat--comfort .car, .cat--black .car { display: grid; grid-template-columns: 1.15fr 1fr; }
-    .cat--comfort .car__img, .cat--black .car__img { aspect-ratio: auto; min-height: 260px; }
     .why .wrap { grid-template-columns: .95fr 1.05fr; gap: 64px; align-items: center; }
     .stores__grid { grid-template-columns: repeat(4, 1fr); }
     .quotes { grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -953,11 +955,11 @@
   ];
 
   var CARS = [
-    { cat: 'x',       nome: 'Hyundai HB20 1.0 Sense',            ano: '2020', km: '88.000 km', cambio: 'Manual',     gnv: true,  foto: 'https://www.autocerto.com/fotos/2645/3557011/18_102739.jpg' },
-    { cat: 'x',       nome: 'Fiat Mobi 1.0 Like',                ano: '2020', km: '50.000 km', cambio: 'Manual',     gnv: false, foto: 'https://www.autocerto.com/fotos/2645/3061624/1_055952.jpg' },
-    { cat: 'x',       nome: 'Renault Kwid 1.0 Zen',              ano: '2022', km: '52.000 km', cambio: 'Manual',     gnv: true,  foto: 'https://www.autocerto.com/fotos/2645/3939419/18_021344.jpg' },
-    { cat: 'comfort', nome: 'Chevrolet Onix Plus 1.0 Turbo LTZ', ano: '2025', km: '25.000 km', cambio: 'Automático', gnv: false, foto: 'https://www.autocerto.com/fotos/2645/5656302/9_051054.jpg' },
-    { cat: 'black',   nome: 'Nissan Kicks 1.6 Active',           ano: '2024', km: '49.000 km', cambio: 'Automático', gnv: false, foto: 'https://www.autocerto.com/fotos/2645/5495280/18_051340.jpg' }
+    { cat: 'x',       nome: 'Hyundai HB20 Sense', motor: '1.0',            ano: '2020', km: '88.000 km', cambio: 'Manual',     gnv: true,  foto: 'https://www.autocerto.com/fotos/2645/3557011/18_102739.jpg' },
+    { cat: 'x',       nome: 'Fiat Mobi Like', motor: '1.0',                ano: '2020', km: '50.000 km', cambio: 'Manual',     gnv: false, foto: 'https://www.autocerto.com/fotos/2645/3061624/1_055952.jpg' },
+    { cat: 'x',       nome: 'Renault Kwid Zen', motor: '1.0',              ano: '2022', km: '52.000 km', cambio: 'Manual',     gnv: true,  foto: 'https://www.autocerto.com/fotos/2645/3939419/18_021344.jpg' },
+    { cat: 'comfort', nome: 'Chevrolet Onix Plus LTZ', motor: '1.0 Turbo', ano: '2025', km: '25.000 km', cambio: 'Automático', gnv: false, foto: 'https://www.autocerto.com/fotos/2645/5656302/9_051054.jpg' },
+    { cat: 'black',   nome: 'Nissan Kicks Active', motor: '1.6',           ano: '2024', km: '49.000 km', cambio: 'Automático', gnv: false, foto: 'https://www.autocerto.com/fotos/2645/5495280/18_051340.jpg' }
   ];
   /* ================================================ */
 
@@ -974,7 +976,7 @@
 
   /* ---------- cards de carros, agrupados por categoria ---------- */
   function carCard(c, cat) {
-    var msg = 'Olá! Sou motorista de app e tenho interesse no ' + c.nome + ' ' + c.ano + ' (categoria ' + cat.nome + '). Qual fica a parcela?';
+    var msg = 'Olá! Sou motorista de app e tenho interesse no ' + c.nome + ' ' + c.motor + ' ' + c.ano + ' (categoria ' + cat.nome + '). Qual fica a parcela?';
     return '' +
       '<article class="car reveal">' +
         '<div class="car__img">' +
@@ -984,7 +986,13 @@
         '</div>' +
         '<div class="car__body">' +
           '<h3>' + c.nome + '</h3>' +
-          '<ul class="car__specs"><li>' + c.ano + '</li><li>' + c.km + '</li><li>' + c.cambio + '</li><li>' + (c.gnv ? 'Flex + GNV' : 'Flex') + '</li></ul>' +
+          '<ul class="car__specs">' +
+            '<li>Motor <b>' + c.motor + '</b></li>' +
+            '<li>Ano <b>' + c.ano + '</b></li>' +
+            '<li><b>' + c.km + '</b> rodados</li>' +
+            '<li>Câmbio <b>' + c.cambio.toLowerCase() + '</b></li>' +
+            '<li>' + (c.gnv ? 'Flex com <b>GNV instalado</b>' : 'Combustível <b>flex</b>') + '</li>' +
+          '</ul>' +
           '<a class="car__cta" data-wa="carro" data-msg="' + msg + '" href="#simular"><svg><use href="#i-wa"/></svg> Consultar parcela</a>' +
         '</div>' +
       '</article>';
